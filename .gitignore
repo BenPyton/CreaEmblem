@@ -22,6 +22,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Graphisms
+*.psd
+
 # Gradle cache directory
 .gradle/
 
