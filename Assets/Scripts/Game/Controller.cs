@@ -3,52 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[DefaultExecutionOrder(100)]
 public class Controller : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer prefabSelecable;
+    [SerializeField] SpriteRenderer prefabSelectable;
     [SerializeField] SpriteRenderer prefabHighlight;
     [SerializeField] SpriteRenderer tileSelection;
     public Hero selectedHero = null;
 
     List<SpriteRenderer> highlights = new List<SpriteRenderer>();
+    List<SpriteRenderer> selectables = new List<SpriteRenderer>();
 
     List<TileClass> reachableTiles = new List<TileClass>();
 
+    private List<Hero> playingHeroes = new List<Hero>();
     bool posChanged = false;
     Vector3Int selectedTile = Vector3Int.zero;
+    public bool blockInput = false;
+
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        DataManager.instance.onStartTurn.AddListener(StartTurn);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(!blockInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = MapManager.GetTileUnderMouse();
-            if (selectedHero == null)
+            Hero heroOnTile = MapManager.GetHeroAtTile(tilePos);
+
+            if (selectedHero == null || !selectedHero.canPlay || selectedHero.team != DataManager.instance.teamPlaying)
             {
-                selectedHero = GetHeroUnderMouse();
-
-                ClearHighlights();
-                if (selectedHero != null)
-                {
-                    Debug.Log("Selected: " + selectedHero.data.name);
-
-                    reachableTiles = selectedHero.GetReachableTiles();
-
-                    tileSelection.enabled = true;
-                    tileSelection.transform.position = MapManager.GetTileCenter(selectedHero.gridPosition);
-
-                    ShowHighlights();
-                }
+                SelectHero(heroOnTile);
             }
-            else
+            else if(selectedHero.canPlay)
             {
-                Hero heroOnTile = MapManager.GetHeroAtTile(tilePos);
                 TileClass tile = reachableTiles.Find(x => x.position == tilePos);
                 if(tile != null)
                 {
@@ -58,6 +51,7 @@ public class Controller : MonoBehaviour
                             if (posChanged && selectedTile == tilePos)
                             {
                                 selectedHero.position = tilePos;
+                                selectedHero.canPlay = false;
                                 DeselectHero();
                             }
                             else if (tile.enabled)
@@ -79,6 +73,7 @@ public class Controller : MonoBehaviour
                             if (posChanged && selectedTile == tilePos)
                             {
                                 selectedHero.position = destTile.position;
+                                selectedHero.canPlay = false;
                                 DeselectHero();
                             }
                             else if (tile.enabled)
@@ -97,38 +92,68 @@ public class Controller : MonoBehaviour
                 {
                     DeselectHero();
                 }
+            }
+        }
+    }
 
+
+    void StartTurn(int _team)
+    {
+        Debug.Log("Start Turn");
+        playingHeroes.Clear();
+
+        playingHeroes = MapManager.GetAllHeroes(_team);
+
+        ClearSelectables();
+        ShowSelectables();
+    }
+
+    void SelectHero(Hero _hero)
+    {
+        selectedHero = _hero;
+
+        ClearHighlights();
+        if (selectedHero != null && selectedHero.canPlay)
+        {
+            Debug.Log("Selected: " + selectedHero.data.name);
+
+            reachableTiles = selectedHero.GetReachableTiles();
+            
+            if (selectedHero.team == DataManager.instance.teamPlaying)
+            {
+                tileSelection.enabled = true;
+                tileSelection.transform.position = MapManager.GetTileCenter(selectedHero.gridPosition);
+                ClearSelectables();
             }
 
-
+            ShowHighlights();
         }
-        
     }
 
     void DeselectHero()
     {
+        ClearHighlights();
+        if (selectedHero.team == DataManager.instance.teamPlaying)
+            ShowSelectables();
+
         selectedHero.targetPosition = selectedHero.gridPosition;
         selectedHero = null;
+
         tileSelection.enabled = false;
-        ClearHighlights();
         posChanged = false;
         MapManager.ResetPath();
-    }
 
-    Hero GetHeroUnderMouse()
-    {
-        Hero hero = null;
-
-        Collider2D collider = Physics2D.OverlapPoint(Utils.GetMouseWorldPosition());
-
-        if (collider != null)
+        bool canPlay = false;
+        foreach(Hero hero in playingHeroes)
         {
-            hero = collider.GetComponent<Hero>();
+            canPlay |= hero.canPlay;
         }
 
-        return hero;
+        if(!canPlay)
+        {
+            DataManager.instance.EndTurn();
+        }
     }
-
 
     void ClearHighlights()
     {
@@ -163,6 +188,28 @@ public class Controller : MonoBehaviour
 
             sprite.color = color;
             highlights.Add(sprite);
+        }
+    }
+
+    void ClearSelectables()
+    {
+        foreach (SpriteRenderer sprite in selectables)
+        {
+            Destroy(sprite.gameObject);
+        }
+        selectables.Clear();
+    }
+
+    void ShowSelectables()
+    {
+        foreach (Hero hero in playingHeroes)
+        {
+            if (hero.canPlay)
+            {
+                SpriteRenderer sprite = Instantiate(prefabSelectable, transform);
+                sprite.transform.position = MapManager.GetTileCenter(hero.gridPosition);
+                selectables.Add(sprite);
+            }
         }
     }
 

@@ -27,7 +27,11 @@ public class Hero : MonoBehaviour
     {
         get { return m_gridPosition; }
     }
-    
+
+
+    public int team = 0;
+
+    public bool canPlay = true;
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +83,8 @@ public class Hero : MonoBehaviour
         openTiles.Enqueue(begin);
         reachableTiles.Add(begin);
 
+        bool isRightTeam = team == DataManager.instance.teamPlaying;
+
         for (int k = 0; k < MoveRange + AttackRange; k++)
         {
             int nbTile = openTiles.Count;
@@ -92,18 +98,25 @@ public class Hero : MonoBehaviour
                     newTile.previous = tile;
                     if (!reachableTiles.Contains(newTile) && Walkable(MapManager.GetZoneAtPosition(tilePos)))
                     {
-                        openTiles.Enqueue(newTile);
                         reachableTiles.Add(newTile);
 
-                        if (k < MoveRange)
+                        Hero occuper = MapManager.GetHeroAtTile(tilePos);
+                        bool hasEnemy = occuper != null && occuper.team != team;
+
+                        if (k >= MoveRange || hasEnemy)
                         {
-                            newTile.type = TileType.Walkable;
-                            newTile.enabled = !MapManager.GetHeroAtTile(tilePos);
+                            newTile.type = TileType.Attackable;
+                            newTile.enabled = isRightTeam && hasEnemy;
                         }
                         else
                         {
-                            newTile.type = TileType.Attackable;
-                            newTile.enabled = MapManager.GetHeroAtTile(tilePos);
+                            newTile.type = TileType.Walkable;
+                            newTile.enabled = isRightTeam && occuper == null;
+                        }
+
+                        if(!hasEnemy)
+                        {
+                            openTiles.Enqueue(newTile);
                         }
                     }
                 }

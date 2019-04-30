@@ -36,6 +36,13 @@ public class MapManager : MonoBehaviour
         else
         {
             instance = this;
+            DataManager.instance.onEndTurn.AddListener((int _team) =>
+            {
+                foreach(Hero hero in heroes)
+                {
+                    hero.canPlay = true;
+                }
+            });
         }
     }
 
@@ -142,5 +149,17 @@ public class MapManager : MonoBehaviour
     public static void SetPathTo(Vector3Int _tile)
     {
         instance.path.SetTile(_tile, instance.pathTile);
+    }
+
+    public static List<Hero> GetAllHeroes(int team = -1)
+    {
+        if (team >= 0)
+        {
+            return instance.heroes.Where(h => h.team == team).ToList();
+        }
+        else
+        {
+            return instance.heroes;
+        }
     }
 }
