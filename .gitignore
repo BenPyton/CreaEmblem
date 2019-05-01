@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/unity,visualstudio
 # Edit at https://www.gitignore.io/?templates=unity,visualstudio
 
+# Specific to my project
+[Cc]onfig.txt
+
 ### Unity ###
 [Ll]ibrary/
 [Tt]emp/
@@ -24,6 +27,12 @@
 
 # Graphisms
 *.psd
+
+# FMOD Files
+.user/
+.unsaved/
+.cache/
+[Bb]uild/
 
 # Gradle cache directory
 .gradle/
