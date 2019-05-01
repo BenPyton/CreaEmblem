@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Exp
   icon: {fileID: 0}
-  minValue: 0
-  maxValue: 10000
+  minValue: 50
+  maxValue: 5000

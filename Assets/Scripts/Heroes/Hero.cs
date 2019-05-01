@@ -48,12 +48,11 @@ public class Hero : MonoBehaviour
     
     //Dictionary<Stat, int> stats = new Dictionary<Stat, int>();
 
-    int currentExp = 0;
     private int m_life = 0;
     public int life
     {
         get { return m_life; }
-        set { m_life = Mathf.Clamp(value, 0, maxLife); CheckIsAlive(); }
+        set { m_life = Mathf.Clamp(value, 0, maxLife); }
     }
 
     public bool isAlive { get { return life > 0; } }
@@ -66,6 +65,10 @@ public class Hero : MonoBehaviour
     public int speed { get { return GetStatValueByName("Spd"); } }
 
     public int level = 1;
+    public int currentExp = 0;
+    public int previousExp = 0;
+    public bool expChanged { get { return currentExp != previousExp; } }
+    public int nextLevelExp {  get { return GetStatValueByName("Exp"); } }
 
     // Start is called before the first frame update
     void Start()
@@ -112,13 +115,32 @@ public class Hero : MonoBehaviour
         transform.position = m_currentPosition.value;
     }
 
-    void CheckIsAlive()
+    public LevelInfo CheckCurrentLevel()
     {
-        if(!isAlive)
+        int expToNextLevel = 0;
+
+        LevelInfo info = new LevelInfo();
+
+        info.hero = this;
+        info.prevExp = previousExp;
+        info.prevLevel = level;
+
+        do
         {
-            DataManager.instance.onHeroDeath.Invoke(this);
-            Destroy(gameObject);
-        }
+            expToNextLevel = GetStatValueByName("Exp");
+            if (currentExp >= expToNextLevel)
+            {
+                currentExp -= expToNextLevel;
+                level++;
+            }
+        } while (currentExp >= GetStatValueByName("Exp"));
+
+        info.newExp = currentExp;
+        info.newLevel = level;
+
+        previousExp = currentExp;
+
+        return info;
     }
 
     public bool Walkable(ZoneData zone)
@@ -208,6 +230,13 @@ public class Hero : MonoBehaviour
             int damage = _from.attack - def;
             life -= damage;
             Debug.Log(name + " take " + damage + " damages : " + life + "/" + maxLife);
+
+            _from.currentExp += 50;
+            if (!isAlive)
+            {
+                DataManager.instance.onHeroDeath.Invoke(this);
+                Destroy(gameObject);
+            }
         }
     }
 }

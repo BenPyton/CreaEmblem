@@ -28,7 +28,7 @@ public class BattleCutscene : MonoBehaviour
             anim.SetTrigger("StartBattle");
         });
 
-        battle.onEndBattle.AddListener(() =>
+        battle.onEndCutscene.AddListener(() =>
         {
             anim.SetTrigger("EndBattle");
         });

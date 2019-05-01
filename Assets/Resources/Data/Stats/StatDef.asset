@@ -15,4 +15,4 @@ MonoBehaviour:
   displayName: Def
   icon: {fileID: 0}
   minValue: 0
-  maxValue: 100
+  maxValue: 40

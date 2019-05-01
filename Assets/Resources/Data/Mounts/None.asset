@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: None
   icon: {fileID: 0}
-  moveDistance: 2
+  moveDistance: 5
   minWalkableHeight: 0
   maxWalkableHeight: 0
   weaknesses: []

@@ -47,15 +47,18 @@ public class AnimatedSprite : MonoBehaviour {
         animIndex = 0;
         while (animate)
         {
-            if(pingPong)
+            if (null != sheet)
             {
-                if (reverse && animIndex == 0)
-                    reverse = false;
-                else if (!reverse && animIndex == sheet.columnCount - 1)
-                    reverse = true;
-            }
+                if (pingPong)
+                {
+                    if (reverse && animIndex == 0)
+                        reverse = false;
+                    else if (!reverse && animIndex == sheet.columnCount - 1)
+                        reverse = true;
+                }
 
-            animIndex = (animIndex + (reverse ? -1 : 1)) % sheet.columnCount;
+                animIndex = (animIndex + (reverse ? -1 : 1)) % sheet.columnCount;
+            }
             yield return new WaitForSeconds(1.0f / animationSpeed);
         }
     }
