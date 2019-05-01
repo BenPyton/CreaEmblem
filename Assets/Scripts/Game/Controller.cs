@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
+
+public class HeroEvent : UnityEvent<Hero> { } 
 
 [DefaultExecutionOrder(100)]
 public class Controller : MonoBehaviour
@@ -19,22 +22,31 @@ public class Controller : MonoBehaviour
     private List<Hero> playingHeroes = new List<Hero>();
     bool posChanged = false;
     Vector3Int selectedTile = Vector3Int.zero;
-    public bool blockInput = false;
+
+    BattleManager battle = null;
+
+    public HeroEvent onHeroClicked = new HeroEvent();
 
 
     // Start is called before the first frame update
     void Awake()
     {
         DataManager.instance.onStartTurn.AddListener(StartTurn);
+        battle = GetComponent<BattleManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!blockInput && Input.GetMouseButtonDown(0))
+        if(!DataManager.instance.blockInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = MapManager.GetTileUnderMouse();
             Hero heroOnTile = MapManager.GetHeroAtTile(tilePos);
+
+            if(heroOnTile != null)
+            {
+                onHeroClicked.Invoke(heroOnTile);
+            }
 
             if (selectedHero == null || !selectedHero.canPlay || selectedHero.team != DataManager.instance.teamPlaying)
             {
@@ -72,6 +84,7 @@ public class Controller : MonoBehaviour
                             TileClass destTile = Utils.GetFirstWalkableTile(tile);
                             if (posChanged && selectedTile == tilePos)
                             {
+                                battle.Attack(selectedHero, heroOnTile);
                                 selectedHero.position = destTile.position;
                                 selectedHero.canPlay = false;
                                 DeselectHero();
@@ -88,7 +101,7 @@ public class Controller : MonoBehaviour
                         default: break;
                     }
                 }
-                else
+                else if(heroOnTile == null)
                 {
                     DeselectHero();
                 }
@@ -99,7 +112,7 @@ public class Controller : MonoBehaviour
 
     void StartTurn(int _team)
     {
-        Debug.Log("Start Turn");
+        //Debug.Log("Start Turn");
         playingHeroes.Clear();
 
         playingHeroes = MapManager.GetAllHeroes(_team);
@@ -115,7 +128,7 @@ public class Controller : MonoBehaviour
         ClearHighlights();
         if (selectedHero != null && selectedHero.canPlay)
         {
-            Debug.Log("Selected: " + selectedHero.data.name);
+            //Debug.Log("Selected: " + selectedHero.data.name);
 
             reachableTiles = selectedHero.GetReachableTiles();
             

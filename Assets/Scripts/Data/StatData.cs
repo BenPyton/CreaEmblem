@@ -7,4 +7,7 @@ public class StatData : ScriptableObject
 {
     public string displayName;
     public Sprite icon;
+
+    public int minValue;
+    public int maxValue;
 }

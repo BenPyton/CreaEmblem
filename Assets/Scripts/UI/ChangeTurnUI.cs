@@ -20,13 +20,13 @@ public class ChangeTurnUI : MonoBehaviour
 
             turnText.text = "Player " + (nextTeam + 1) + " Turn";
             anim.SetTrigger("ChangeTurn");
-            Debug.Log("End Turn");
+            //Debug.Log("End Turn");
         });
     }
 
     public void NewTurn()
     {
         DataManager.instance.NewTurn();
-        Debug.Log("New Turn");
+        //Debug.Log("New Turn");
     }
 }

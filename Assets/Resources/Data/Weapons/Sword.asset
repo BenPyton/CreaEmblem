@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   displayName: Sword
-  icon: {fileID: 0}
-  range: 2
+  icon: {fileID: 21300000, guid: e1ddbe410cf406b4b8adceadcde7c3e7, type: 3}
+  range: 1
   damageType: 0
   weaknesses:
   - {fileID: 11400000, guid: 4173b99b31faa1f46a45347f3be3aa55, type: 2}

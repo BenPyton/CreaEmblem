@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Spear
   m_EditorClassIdentifier: 
   displayName: Spear
-  icon: {fileID: 0}
+  icon: {fileID: 21300002, guid: e1ddbe410cf406b4b8adceadcde7c3e7, type: 3}
+  range: 1
   damageType: 0
   weaknesses:
   - {fileID: 11400000, guid: ad67f6f250dbca2428e90944194ba520, type: 2}

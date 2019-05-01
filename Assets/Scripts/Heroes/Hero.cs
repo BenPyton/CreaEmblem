@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Hero : MonoBehaviour
@@ -33,11 +34,71 @@ public class Hero : MonoBehaviour
 
     public bool canPlay = true;
 
+
+
+    public int MoveRange
+    {
+        get { return data.mount.moveDistance; }
+    }
+
+    public int AttackRange
+    {
+        get { return data.weapon.range; }
+    }
+    
+    //Dictionary<Stat, int> stats = new Dictionary<Stat, int>();
+
+    int currentExp = 0;
+    private int m_life = 0;
+    public int life
+    {
+        get { return m_life; }
+        set { m_life = Mathf.Clamp(value, 0, maxLife); CheckIsAlive(); }
+    }
+
+    public bool isAlive { get { return life > 0; } }
+
+    public int experience { get { return GetStatValueByName("Exp"); } }
+    public int maxLife { get { return GetStatValueByName("Hp"); } }
+    public int attack { get { return GetStatValueByName("Atk"); } }
+    public int defense { get { return GetStatValueByName("Def"); } }
+    public int resistance { get { return GetStatValueByName("Res"); } }
+    public int speed { get { return GetStatValueByName("Spd"); } }
+
+    public int level = 1;
+
+    AnimatedSprite sprite = null;
+
     // Start is called before the first frame update
     void Start()
     {
-        position = MapManager.GetTileCenter(MapManager.GetTileAtPosition(transform.position));
+        m_currentPosition.value = MapManager.GetTileCenter(MapManager.GetTileAtPosition(transform.position));
+        m_gridPosition = MapManager.GetTileAtPosition(m_currentPosition.target);
+
+        sprite = GetComponent<AnimatedSprite>();
+        if (data != null)
+        {
+            life = maxLife;
+            sprite.sheet = data.spriteSheet;
+        }
+        else
+        {
+            Debug.LogWarning("No data on hero");
+        }
+
+        sprite.flipX = team == 0;
+
         MapManager.RegisterHero(this);
+    }
+
+    [ExecuteAlways]
+    private void OnEnable()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if(sr != null && data != null && data.spriteSheet != null)
+        {
+            sr.sprite = data.spriteSheet[0, 0];
+        }
     }
 
     private void OnDestroy()
@@ -52,14 +113,13 @@ public class Hero : MonoBehaviour
         transform.position = m_currentPosition.value;
     }
 
-    public int MoveRange
+    void CheckIsAlive()
     {
-        get { return data.mount.moveDistance; }
-    }
-
-    public int AttackRange
-    {
-        get { return data.weapon.range; }
+        if(!isAlive)
+        {
+            DataManager.instance.onHeroDeath.Invoke(this);
+            Destroy(gameObject);
+        }
     }
 
     public bool Walkable(ZoneData zone)
@@ -67,11 +127,6 @@ public class Hero : MonoBehaviour
         return zone.height >= data.mount.minWalkableHeight 
             && zone.height <= data.mount.maxWalkableHeight;
     }
-
-
-
-
-
 
     public List<TileClass> GetReachableTiles()
     {
@@ -124,5 +179,35 @@ public class Hero : MonoBehaviour
         }
 
         return reachableTiles;
+    }
+
+
+
+    private int GetStatValueByName(string _name)
+    {
+        if (data != null)
+        {
+            List<Stat> stats = data.stats.Where(x => x.stat.displayName == _name).ToList();
+            if (stats.Count > 0)
+            {
+                return Mathf.RoundToInt(stats[0].curve.Evaluate(level / 100.0f) * (stats[0].stat.maxValue - stats[0].stat.minValue) + stats[0].stat.minValue);
+            }
+            else
+            {
+                Debug.LogError("No stat found with name: " + _name);
+            }
+        }
+        return -1;
+    }
+
+
+    public void Attack(Hero _hero)
+    {
+        if(isAlive)
+        {
+            int def = data.weapon.damageType == DamageType.Physical ? _hero.defense : _hero.resistance;
+            _hero.life -= attack - def;
+            Debug.Log(_hero.name + " take " + (attack - def) + " damages : " + _hero.life + "/" + _hero.maxLife);
+        }
     }
 }

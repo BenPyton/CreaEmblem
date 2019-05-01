@@ -23,6 +23,12 @@ public class DataManager : MonoBehaviour
     public new AudioManager audio = new AudioManager();
     public DataFile configFile = new DataFile();
 
+    public bool inBattle = false;
+
+
+
+    public HeroEvent onHeroDeath = new HeroEvent();
+
     void Awake()
     {
         if(instance == null)
@@ -81,8 +87,7 @@ public class DataManager : MonoBehaviour
 
     public void EndTurn()
     {
-        blockInput = true;
-        onEndTurn.Invoke(teamPlaying);
+        StartCoroutine(EndTurnCoroutine());
     }
 
     public void ApplySettings()
@@ -91,5 +96,12 @@ public class DataManager : MonoBehaviour
         audio.SetVCAVolume("Music", configFile["music-volume"].GetFloat());
         audio.SetVCAVolume("SFX", configFile["sfx-volume"].GetFloat());
         audio.SetVCAVolume("UI", configFile["ui-volume"].GetFloat());
+    }
+
+    IEnumerator EndTurnCoroutine()
+    {
+        yield return new WaitUntil(() => !inBattle);
+        blockInput = true;
+        onEndTurn.Invoke(teamPlaying);
     }
 }

@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7095b603de49fb4a8a74e4376b4ab11, type: 3}
-  m_Name: None
+  m_Script: {fileID: 11500000, guid: d47ca73aa9804284da708405554268ff, type: 3}
+  m_Name: StatAtk
   m_EditorClassIdentifier: 
-  displayName: None
+  displayName: Atk
   icon: {fileID: 0}
-  moveDistance: 2
-  minWalkableHeight: 0
-  maxWalkableHeight: 0
-  weaknesses: []
-  resistances: []
+  minValue: 5
+  maxValue: 50
