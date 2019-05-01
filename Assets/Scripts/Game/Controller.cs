@@ -35,6 +35,11 @@ public class Controller : MonoBehaviour
         battle = GetComponent<BattleManager>();
     }
 
+    private void Start()
+    {
+        DataManager.instance.StartGame();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -155,17 +160,6 @@ public class Controller : MonoBehaviour
         tileSelection.enabled = false;
         posChanged = false;
         MapManager.ResetPath();
-
-        bool canPlay = false;
-        foreach(Hero hero in playingHeroes)
-        {
-            canPlay |= hero.canPlay;
-        }
-
-        if(!canPlay)
-        {
-            DataManager.instance.EndTurn();
-        }
     }
 
     void ClearHighlights()

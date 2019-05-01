@@ -67,15 +67,13 @@ public class Hero : MonoBehaviour
 
     public int level = 1;
 
-    AnimatedSprite sprite = null;
-
     // Start is called before the first frame update
     void Start()
     {
         m_currentPosition.value = MapManager.GetTileCenter(MapManager.GetTileAtPosition(transform.position));
         m_gridPosition = MapManager.GetTileAtPosition(m_currentPosition.target);
 
-        sprite = GetComponent<AnimatedSprite>();
+        AnimatedSprite sprite = GetComponent<AnimatedSprite>();
         if (data != null)
         {
             life = maxLife;
@@ -103,6 +101,7 @@ public class Hero : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log("Destroy hero!");
         MapManager.UnregisterHero(this);
     }
 
@@ -201,13 +200,14 @@ public class Hero : MonoBehaviour
     }
 
 
-    public void Attack(Hero _hero)
+    public void GetDamage(Hero _from)
     {
         if(isAlive)
         {
-            int def = data.weapon.damageType == DamageType.Physical ? _hero.defense : _hero.resistance;
-            _hero.life -= attack - def;
-            Debug.Log(_hero.name + " take " + (attack - def) + " damages : " + _hero.life + "/" + _hero.maxLife);
+            int def = data.weapon.damageType == DamageType.Physical ? defense : resistance;
+            int damage = _from.attack - def;
+            life -= damage;
+            Debug.Log(name + " take " + damage + " damages : " + life + "/" + maxLife);
         }
     }
 }

@@ -54,7 +54,6 @@ public class BattleCutscene : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Attack");
-        attacker.Attack(attacked);
+        attacked.GetDamage(attacker);
     }
 }

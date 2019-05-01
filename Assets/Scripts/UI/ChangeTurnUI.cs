@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[DefaultExecutionOrder(1000)]
+[DefaultExecutionOrder(50)]
 public class ChangeTurnUI : MonoBehaviour
 {
     [SerializeField] Text turnText;
@@ -26,7 +26,7 @@ public class ChangeTurnUI : MonoBehaviour
 
     public void NewTurn()
     {
-        DataManager.instance.NewTurn();
+        DataManager.instance.BeginTurn();
         //Debug.Log("New Turn");
     }
 }

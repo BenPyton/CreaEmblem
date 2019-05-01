@@ -5,6 +5,16 @@ using UnityEngine.Events;
 
 public class GameEvent : UnityEvent<int> { }
 
+public enum GameState
+{
+    None,
+    Start,
+    Playing,
+    Battle,
+    End,
+    NbState
+}
+
 [DefaultExecutionOrder(-1000)]
 public class DataManager : MonoBehaviour
 {
@@ -19,12 +29,15 @@ public class DataManager : MonoBehaviour
 
     public GameEvent onStartTurn = new GameEvent();
     public GameEvent onEndTurn = new GameEvent();
+    public UnityEvent onStartGame = new UnityEvent();
+    public GameEvent onEndGame = new GameEvent();
 
     public new AudioManager audio = new AudioManager();
     public DataFile configFile = new DataFile();
 
-    public bool inBattle = false;
+    //public bool inBattle = false;
 
+    public GameState gameState = GameState.None;
 
 
     public HeroEvent onHeroDeath = new HeroEvent();
@@ -72,14 +85,75 @@ public class DataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        CheckEndGame();
+        CheckEndTurn();
+    }
+
+    void CheckEndTurn()
+    {
+        if (gameState == GameState.Playing)
         {
-            NewTurn();
+            bool canPlay = false;
+            foreach (Hero hero in MapManager.GetAllHeroes(teamPlaying))
+            {
+                canPlay |= hero.canPlay;
+            }
+
+            //Debug.Log("Endturn: " + !canPlay);
+            if (!canPlay)
+            {
+                EndTurn();
+            }
         }
     }
 
-    public void NewTurn()
+    void CheckEndGame()
     {
+        if (gameState == GameState.Playing)
+        {
+            int winner = -1;
+            bool endGame = true;
+            for (int i = 0; i < nbTeam; i++)
+            {
+                // at least one hero alive in the team
+                if (MapManager.GetAllHeroes(i).Count > 0)
+                {
+                    endGame &= winner == -1;
+                    winner = i;
+                }
+            }
+            if (endGame)
+            {
+                EndGame(winner);
+            }
+        }
+    }
+
+    public void StartGame()
+    {
+        if (gameState == GameState.None)
+        {
+            Debug.Log("Start Game");
+            gameState = GameState.Start;
+            m_teamPlaying = -1;
+            onStartGame.Invoke();
+            EndTurn();
+        }
+    }
+
+    public void EndGame(int _winner)
+    {
+        if(gameState == GameState.Playing)
+        {
+            Debug.Log("Endgame, winner: " + _winner);
+            gameState = GameState.End;
+            onEndGame.Invoke(_winner);
+        }
+    }
+
+    public void BeginTurn()
+    {
+        gameState = GameState.Playing;
         blockInput = false;
         m_teamPlaying = (m_teamPlaying + 1) % nbTeam;
         onStartTurn.Invoke(teamPlaying);
@@ -100,7 +174,7 @@ public class DataManager : MonoBehaviour
 
     IEnumerator EndTurnCoroutine()
     {
-        yield return new WaitUntil(() => !inBattle);
+        yield return new WaitUntil(() => gameState != GameState.Battle);
         blockInput = true;
         onEndTurn.Invoke(teamPlaying);
     }
