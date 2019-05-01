@@ -87,9 +87,9 @@ public class Hero : MonoBehaviour
         sprite.flipX = team == 0;
 
         MapManager.RegisterHero(this);
+        
     }
-
-    [ExecuteAlways]
+    
     private void OnEnable()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

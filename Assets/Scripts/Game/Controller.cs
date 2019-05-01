@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
@@ -9,6 +10,7 @@ public class HeroEvent : UnityEvent<Hero> { }
 [DefaultExecutionOrder(100)]
 public class Controller : MonoBehaviour
 {
+    [SerializeField] Hero prefabHero;
     [SerializeField] SpriteRenderer prefabSelectable;
     [SerializeField] SpriteRenderer prefabHighlight;
     [SerializeField] SpriteRenderer tileSelection;
@@ -37,12 +39,39 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        DataManager.instance.StartGame();
+        List<PlayerStart> starts = new List<PlayerStart>();
+        starts.AddRange(MapManager.GetAllPlayerStarts()); // clone the start list
+
+        foreach(HeroTeam h in DataManager.instance.heroToSpawn)
+        {
+            PlayerStart start = starts.Find(x => x.team == h.team);
+            if(start != null)
+            {
+                starts.Remove(start);
+                Hero hero = Instantiate(prefabHero);
+                hero.data = h.data;
+                hero.team = h.team;
+                hero.transform.position = start.transform.position;
+            }
+            else
+            {
+                Debug.LogError("Error: can't find a player start for a hero in team " + h.team);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(DataManager.instance.gameState == GameState.None)
+        {
+            if(MapManager.GetAllHeroes().Count >= DataManager.instance.heroToSpawn.Count)
+            {
+                DataManager.instance.StartGame();
+            }
+        }
+
+
         if(!DataManager.instance.blockInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = MapManager.GetTileUnderMouse();

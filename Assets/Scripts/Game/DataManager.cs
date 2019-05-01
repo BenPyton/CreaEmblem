@@ -15,6 +15,13 @@ public enum GameState
     NbState
 }
 
+[System.Serializable]
+public struct HeroTeam
+{
+    public int team;
+    public HeroData data;
+}
+
 [DefaultExecutionOrder(-1000)]
 public class DataManager : MonoBehaviour
 {
@@ -26,6 +33,8 @@ public class DataManager : MonoBehaviour
     public int teamPlaying { get { return m_teamPlaying; } }
 
     public bool blockInput = false;
+
+    [SerializeField] public List<HeroTeam> heroToSpawn = new List<HeroTeam>(); 
 
     public GameEvent onStartTurn = new GameEvent();
     public GameEvent onEndTurn = new GameEvent();

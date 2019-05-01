@@ -27,6 +27,9 @@ public class MapManager : MonoBehaviour
     // List containing all heroes currently on the map
     List<Hero> heroes = new List<Hero>();
 
+    // List containing all player starts on the map
+    List<PlayerStart> starts = new List<PlayerStart>();
+
     private void Awake()
     {
         if(instance != null)
@@ -132,6 +135,34 @@ public class MapManager : MonoBehaviour
         if (instance.heroes.Contains(_hero))
         {
             instance.heroes.Remove(_hero);
+        }
+    }
+
+    public static void RegisterPlayerStart(PlayerStart _start)
+    {
+        if (!instance.starts.Contains(_start))
+        {
+            instance.starts.Add(_start);
+        }
+    }
+
+    public static void UnregisterPlayerStart(PlayerStart _start)
+    {
+        if (instance.starts.Contains(_start))
+        {
+            instance.starts.Remove(_start);
+        }
+    }
+
+    public static List<PlayerStart> GetAllPlayerStarts(int _team = -1)
+    {
+        if (_team >= 0)
+        {
+            return instance.starts.Where(h => h.team == _team).ToList();
+        }
+        else
+        {
+            return instance.starts;
         }
     }
 
