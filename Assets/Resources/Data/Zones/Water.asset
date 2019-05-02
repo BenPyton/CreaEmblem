@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be93b6e5dee470c4e8f038c9282dbe96, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Water
   icon: {fileID: 0}
   height: -1
   spriteSheet: {fileID: 0}

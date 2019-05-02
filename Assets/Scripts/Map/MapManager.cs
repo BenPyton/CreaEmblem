@@ -4,22 +4,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[System.Serializable]
-public struct TileDataStruct
-{
-    public TileBase tile;
-    public ZoneData data;
-}
 
 [DefaultExecutionOrder(-100)]
 public class MapManager : MonoBehaviour
 {
     static MapManager instance = null;
 
+    [SerializeField] Hero prefabHero;
+    [SerializeField] MapData map;
+    [Header("Path")]
     [SerializeField] Tilemap path;
     [SerializeField] TileBase pathTile;
-
-    [SerializeField] List<TileDataStruct> tileData = new List<TileDataStruct>();
+    
+    //[SerializeField] HeroStart prefabHeroStart;
 
     GridInformation gridInfo = null;
     Grid grid = null;
@@ -28,7 +25,7 @@ public class MapManager : MonoBehaviour
     List<Hero> heroes = new List<Hero>();
 
     // List containing all player starts on the map
-    List<PlayerStart> starts = new List<PlayerStart>();
+    List<HeroStartInfo> starts = new List<HeroStartInfo>();
 
     private void Awake()
     {
@@ -52,31 +49,11 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Tilemap tileMap = GetComponentInChildren<Tilemap>();
         gridInfo = GetComponent<GridInformation>();
         grid = GetComponent<Grid>();
 
-        if (tileMap != null)
-        {
-            for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++)
-            {
-                for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)
-                {
-                    Vector3Int localPlace = (new Vector3Int(n, p, 0));
-                    if (tileMap.HasTile(localPlace))
-                    {
-                        ZoneData data = tileData.Find(x => x.tile == tileMap.GetTile(localPlace)).data;
-
-                        gridInfo.SetPositionProperty(localPlace, "data", data as Object);
-                        
-                    }
-                    else
-                    {
-                        //No tile at "place"
-                    }
-                }
-            }
-        }
+        LoadMap();
+        SpawnHeroes();
     }
 
     // Update is called once per frame
@@ -86,7 +63,62 @@ public class MapManager : MonoBehaviour
     }
 
 
+    void LoadMap()
+    {
+        Tilemap tileMap = GetComponentInChildren<Tilemap>();
+        if (tileMap != null && map != null && map.palette != null && map.Load())
+        {
+            Debug.Log("Map loaded !");
+            tileMap.ClearAllTiles();
+            for (int x = 0; x < MapData.width; x++)
+            {
+                for (int y = 0; y < MapData.height; y++)
+                {
+                    Vector3Int position = new Vector3Int(x, y, 0);
+                    int value = map.data[x, y];
+                    if (value >= 0)
+                    {
+                        tileMap.SetTile(position, map.palette[value].tile);
+                        gridInfo.SetPositionProperty(position, "data", map.palette[value].data as Object);
+                    }
+                    else
+                    {
+                        //No tile at this position
+                    }
+                }
+            }
 
+            starts.Clear();
+            foreach (HeroStartInfo info in map.heroStarts)
+            {
+                starts.Add(info);
+            }
+        }
+    }
+
+
+
+    void SpawnHeroes()
+    {
+        List<HeroStartInfo> starts = GetAllHeroStarts();
+
+        foreach (HeroTeam h in DataManager.instance.heroToSpawn)
+        {
+            HeroStartInfo start;
+            if (GetFirstHeroStart(out start, h.team, starts))
+            {
+                starts.Remove(start);
+                Hero hero = Instantiate(prefabHero);
+                hero.data = h.data;
+                hero.team = h.team;
+                hero.transform.position = new Vector3(start.position.x, start.position.y);
+            }
+            else
+            {
+                Debug.LogError("Error: can't find a player start for a hero in team " + h.team);
+            }
+        }
+    }
 
 
 
@@ -138,23 +170,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public static void RegisterPlayerStart(PlayerStart _start)
-    {
-        if (!instance.starts.Contains(_start))
-        {
-            instance.starts.Add(_start);
-        }
-    }
-
-    public static void UnregisterPlayerStart(PlayerStart _start)
-    {
-        if (instance.starts.Contains(_start))
-        {
-            instance.starts.Remove(_start);
-        }
-    }
-
-    public static List<PlayerStart> GetAllPlayerStarts(int _team = -1)
+    public static List<HeroStartInfo> GetAllHeroStarts(int _team = -1)
     {
         if (_team >= 0)
         {
@@ -162,8 +178,33 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            return instance.starts;
+            return instance.starts.ToList(); // ToList permit to return a copy instead of the singleton list reference
         }
+    }
+
+    public static bool GetFirstHeroStart(out HeroStartInfo _start, int _team = -1, List<HeroStartInfo> startList = null)
+    {
+        bool success = false;
+        _start = new HeroStartInfo();
+
+        List<HeroStartInfo> starts = startList != null ? startList : instance.starts;
+
+        if (_team < 0 && starts.Count > 0)
+        {
+            _start = instance.starts[0];
+            success = true;
+        }
+        else if (_team >= 0)
+        {
+            int index = starts.FindIndex(x => x.team == _team);
+            if(index >= 0)
+            {
+                _start = starts[index];
+                success = true;
+            }
+        }
+
+        return success;
     }
 
     public static Hero GetHeroAtTile(Vector3Int _tile)

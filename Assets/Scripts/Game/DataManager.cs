@@ -34,22 +34,21 @@ public class DataManager : MonoBehaviour
 
     public bool blockInput = false;
 
+    public new AudioManager audio = new AudioManager();
+    public DataFile configFile = new DataFile();
+
+    public GameState gameState = GameState.None;
+    
     [SerializeField] public List<HeroTeam> heroToSpawn = new List<HeroTeam>(); 
 
+    // Events
     public GameEvent onStartTurn = new GameEvent();
     public GameEvent onEndTurn = new GameEvent();
     public UnityEvent onStartGame = new UnityEvent();
     public GameEvent onEndGame = new GameEvent();
-
-    public new AudioManager audio = new AudioManager();
-    public DataFile configFile = new DataFile();
-
-    //public bool inBattle = false;
-
-    public GameState gameState = GameState.None;
-
-
     public HeroEvent onHeroDeath = new HeroEvent();
+
+
 
     void Awake()
     {
@@ -107,8 +106,7 @@ public class DataManager : MonoBehaviour
             {
                 canPlay |= hero.canPlay;
             }
-
-            //Debug.Log("Endturn: " + !canPlay);
+            
             if (!canPlay)
             {
                 EndTurn();

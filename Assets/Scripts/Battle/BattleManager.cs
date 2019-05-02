@@ -28,21 +28,8 @@ public class BattleManager : MonoBehaviour
 
     Coroutine battleCoroutine = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Attack(Hero _attacker, Hero _attacked)
     {
-        //Debug.Log(_attacker.name + " attack " + _attacked.name);
         if(battleCoroutine == null)
         {
             battleCoroutine = StartCoroutine(BattleCoroutine(_attacker, _attacked));
@@ -58,7 +45,6 @@ public class BattleManager : MonoBehaviour
     IEnumerator BattleCoroutine(Hero _attacker, Hero _attacked)
     {
         DataManager.instance.blockInput = true;
-        //DataManager.instance.inBattle = true;
         DataManager.instance.gameState = GameState.Battle;
         onStartBattle.Invoke(_attacker, _attacked);
         
@@ -110,12 +96,6 @@ public class BattleManager : MonoBehaviour
             LevelInfo info = _attacker.CheckCurrentLevel();
             onExpGain.Invoke(info);
 
-            //Debug.Log("Attacker gain exp ! from " + info.prevExp + " to " + info.newExp);
-            //if(info.newLevel != info.prevLevel)
-            //{
-            //    Debug.Log("Attacker gain level ! from " + info.prevLevel + " to " + info.newLevel);
-            //}
-
             continueBattle = false;
             yield return new WaitUntil(() => continueBattle);
         }
@@ -124,12 +104,6 @@ public class BattleManager : MonoBehaviour
         {
             LevelInfo info = _attacked.CheckCurrentLevel();
             onExpGain.Invoke(info);
-
-            //Debug.Log("Attacked gain exp ! from " + info.prevExp + " to " + info.newExp);
-            //if (info.newLevel != info.prevLevel)
-            //{
-            //    Debug.Log("Attacked gain level ! from " + info.prevLevel + " to " + info.newLevel);
-            //}
 
             continueBattle = false;
             yield return new WaitUntil(() => continueBattle);

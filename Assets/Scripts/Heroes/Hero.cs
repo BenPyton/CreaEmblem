@@ -104,7 +104,6 @@ public class Hero : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Destroy hero!");
         MapManager.UnregisterHero(this);
     }
 
@@ -145,8 +144,9 @@ public class Hero : MonoBehaviour
 
     public bool Walkable(ZoneData zone)
     {
-        return zone.height >= data.mount.minWalkableHeight 
-            && zone.height <= data.mount.maxWalkableHeight;
+        return zone == null ||
+            (zone.height >= data.mount.minWalkableHeight 
+            && zone.height <= data.mount.maxWalkableHeight);
     }
 
     public List<TileClass> GetReachableTiles()

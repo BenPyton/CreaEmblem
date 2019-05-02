@@ -39,25 +39,6 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        List<PlayerStart> starts = new List<PlayerStart>();
-        starts.AddRange(MapManager.GetAllPlayerStarts()); // clone the start list
-
-        foreach(HeroTeam h in DataManager.instance.heroToSpawn)
-        {
-            PlayerStart start = starts.Find(x => x.team == h.team);
-            if(start != null)
-            {
-                starts.Remove(start);
-                Hero hero = Instantiate(prefabHero);
-                hero.data = h.data;
-                hero.team = h.team;
-                hero.transform.position = start.transform.position;
-            }
-            else
-            {
-                Debug.LogError("Error: can't find a player start for a hero in team " + h.team);
-            }
-        }
     }
 
     // Update is called once per frame
