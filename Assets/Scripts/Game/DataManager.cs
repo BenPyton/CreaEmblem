@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.IO;
+using System.Linq;
 
 public class GameEvent : UnityEvent<int> { }
 
@@ -20,7 +21,7 @@ public enum GameState
 public struct HeroTeam
 {
     public int team;
-    public HeroData data;
+    public HeroInfo info;
 }
 
 [DefaultExecutionOrder(-1000)]
@@ -37,6 +38,7 @@ public class DataManager : MonoBehaviour
 
     public new AudioManager audio = new AudioManager();
     public DataFile configFile = new DataFile();
+    public HeroManager heroes = new HeroManager();
 
     public GameState gameState = GameState.None;
     
@@ -74,6 +76,34 @@ public class DataManager : MonoBehaviour
 
             AssetBundleManager.LoadAllBundlesFrom("terrains/palettes");
             AssetBundleManager.LoadAllBundlesFrom("terrains/zones");
+            AssetBundleManager.LoadAllBundlesFrom("stats");
+            AssetBundleManager.LoadAllBundlesFrom("weapons");
+            AssetBundleManager.LoadAllBundlesFrom("mounts");
+
+            heroes.LoadHeroes();
+
+            foreach(HeroInfo data in heroes.heroes)
+            {
+                Debug.Log("Hero bundle name: " + data.bundleName);
+            }
+
+            heroToSpawn.Clear();
+
+            HeroTeam hero1 = new HeroTeam() { team = 1, info = new HeroInfo() };
+            hero1.info = heroes.heroes[0];
+            heroToSpawn.Add(hero1);
+
+            HeroTeam hero2 = new HeroTeam() { team = 0, info = new HeroInfo() };
+            hero2.info = heroes.heroes[1];
+            heroToSpawn.Add(hero2);
+
+            HeroTeam hero3 = new HeroTeam() { team = 1, info = new HeroInfo() };
+            hero3.info = heroes.heroes[0];
+            heroToSpawn.Add(hero3);
+
+            HeroTeam hero4 = new HeroTeam() { team = 0, info = new HeroInfo() };
+            hero4.info = heroes.heroes[1];
+            heroToSpawn.Add(hero4);
         }
         else
         {
@@ -85,6 +115,7 @@ public class DataManager : MonoBehaviour
     {
         if(instance == this)
         {
+            heroes.SaveHeroes();
             configFile.Write("config.txt");
             audio.Clear();
         }

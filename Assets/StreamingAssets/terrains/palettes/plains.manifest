@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3357935930
+CRC: 4282254948
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 12497895d05a2420666325b5e2a88027
+    Hash: d7206678391ea73885deb768f0ff5ce2
   TypeTreeHash:
     serializedVersion: 2
     Hash: 6e8e15c9a2b6a8b2805e114f3c7d1ddd
@@ -25,8 +25,8 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/Maps/Tiles/Palettes/Plains.asset
-- Assets/Sprites/cliff.png
-- Assets/Sprites/Overworld_Tileset.png
+- Assets/Sprites/Terrains/cliff.png
+- Assets/Sprites/Terrains/Overworld_Tileset.png
 - Assets/Maps/Tiles/Rules/DarkGrassRule.asset
 - Assets/Maps/Tiles/Rules/HillRule.asset
 Dependencies:

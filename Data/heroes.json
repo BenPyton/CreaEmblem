@@ -1,0 +1,14 @@
+{
+    "heroes": [
+        {
+            "bundleName": "chrom",
+            "level": 4,
+            "exp": 3
+        },
+        {
+            "bundleName": "noire",
+            "level": 4,
+            "exp": 153
+        }
+    ]
+}

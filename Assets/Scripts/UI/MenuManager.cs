@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] GameObject titleScreen;
+    [SerializeField] GameObject teamSelectionScreen;
     [SerializeField] GameObject levelSelectionScreen;
     [SerializeField] GameObject settingsScreen;
     [SerializeField] GameObject creditsScreen;
@@ -27,6 +28,7 @@ public class MenuManager : MonoBehaviour
     public void ShowTitleScreen()
     {
         titleScreen.SetActive(true);
+        teamSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
         settingsScreen.SetActive(false);
         creditsScreen.SetActive(false);
@@ -36,6 +38,7 @@ public class MenuManager : MonoBehaviour
     public void ShowSettingsScreen()
     {
         titleScreen.SetActive(false);
+        teamSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
         settingsScreen.SetActive(true);
         creditsScreen.SetActive(false);
@@ -45,6 +48,7 @@ public class MenuManager : MonoBehaviour
     public void ShowCreditsScreen()
     {
         titleScreen.SetActive(false);
+        teamSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
         settingsScreen.SetActive(false);
         creditsScreen.SetActive(true);
@@ -56,9 +60,20 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void PlayGame()
+    public void SelectTeam()
     {
         titleScreen.SetActive(false);
+        teamSelectionScreen.SetActive(true);
+        levelSelectionScreen.SetActive(false);
+        settingsScreen.SetActive(false);
+        creditsScreen.SetActive(false);
+        particles.enableEmission = false;
+    }
+
+    public void SelectLevel()
+    {
+        titleScreen.SetActive(false);
+        teamSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(true);
         settingsScreen.SetActive(false);
         creditsScreen.SetActive(false);

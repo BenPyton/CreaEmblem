@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 1484307678
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e2b04c09b4e6994b91c76c6eabf20225
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fbd7aace82f2ab7c4520ff7487517b41
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {fileID: 11500000, guid: d47ca73aa9804284da708405554268ff, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Data/Stats/StatRes.asset
+- Assets/Data/Stats/StatLife.asset
+- Assets/Data/Stats/StatAtk.asset
+- Assets/Data/Stats/StatExp.asset
+- Assets/Data/Stats/StatDef.asset
+- Assets/Data/Stats/StatSpd.asset
+Dependencies: []

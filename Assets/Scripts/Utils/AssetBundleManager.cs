@@ -71,4 +71,20 @@ public static class AssetBundleManager {
         }
         loadedBundles.Clear();
     }
+
+    // Load all assets from a bundle and return only thos of type T
+    static public List<T> LoadAllAssets<T>(AssetBundle _bundle) where T : Object
+    {
+        List<T> matchingAssets = new List<T>();
+        Object[] assets = _bundle.LoadAllAssets();
+
+        foreach (Object asset in assets)
+        {
+            if (asset.GetType() == typeof(T))
+            {
+                matchingAssets.Add(asset as T);
+            }
+        }
+        return matchingAssets;
+    }
 }

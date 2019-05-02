@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 2376586526
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1b7da2849edfac164745ea092be42661
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fc2123522bcbe591edaa5e47f1396d15
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: f2d62ddb9850e4e42a9eddac91462460, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Data/Weapons/Bow.asset
+- Assets/Data/Weapons/weaponIcons.png
+- Assets/Data/Weapons/Axe.asset
+- Assets/Data/Weapons/Sword.asset
+- Assets/Data/Weapons/Spear.asset
+Dependencies: []

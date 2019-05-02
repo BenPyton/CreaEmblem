@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1355395621
+CRC: 1634236465
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -7,9 +7,30 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: terrains/palettes/plains
     Info_1:
-      Name: terrains/zones/basiczones
-      Dependencies: {}
-    Info_2:
       Name: terrains/palettes/plains
       Dependencies:
         Dependency_0: terrains/zones/basiczones
+    Info_2:
+      Name: terrains/zones/basiczones
+      Dependencies: {}
+    Info_3:
+      Name: heroes/chrom
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_4:
+      Name: heroes/noire
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_5:
+      Name: weapons/basicweapons
+      Dependencies: {}
+    Info_6:
+      Name: stats/basicstats
+      Dependencies: {}
+    Info_7:
+      Name: mounts/basicmounts
+      Dependencies: {}

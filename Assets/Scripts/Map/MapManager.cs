@@ -117,7 +117,8 @@ public class MapManager : MonoBehaviour
             {
                 starts.Remove(start);
                 Hero hero = Instantiate(prefabHero);
-                hero.data = h.data;
+                hero.info = h.info;
+                hero.data = DataManager.instance.heroes.GetHeroDataFromInfo(h.info);
                 hero.team = h.team;
                 hero.transform.position = new Vector3(start.position.x, start.position.y);
             }

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Hero : MonoBehaviour
 {
-    [SerializeField] public HeroData data;
-
     private SmoothVector3 m_currentPosition = new SmoothVector3(Vector3.zero, 0.1f);
     public Vector3 position
     {
@@ -64,11 +62,16 @@ public class Hero : MonoBehaviour
     public int resistance { get { return GetStatValueByName("Res"); } }
     public int speed { get { return GetStatValueByName("Spd"); } }
 
-    public int level = 1;
-    public int currentExp = 0;
+    //public int level = 1;
+    //public int currentExp = 0;
     public int previousExp = 0;
     public bool expChanged { get { return currentExp != previousExp; } }
     public int nextLevelExp {  get { return GetStatValueByName("Exp"); } }
+
+    public HeroData data;
+    public HeroInfo info;
+    public int level {  get { return info.level; } }
+    public int currentExp {  get { return info.exp; } }
 
     // Start is called before the first frame update
     void Start()
@@ -118,28 +121,28 @@ public class Hero : MonoBehaviour
     {
         int expToNextLevel = 0;
 
-        HeroExpInfo info = new HeroExpInfo();
+        HeroExpInfo expInfo = new HeroExpInfo();
 
-        info.hero = this;
-        info.prevExp = previousExp;
-        info.prevLevel = level;
+        expInfo.hero = this;
+        expInfo.prevExp = previousExp;
+        expInfo.prevLevel = level;
 
         do
         {
             expToNextLevel = GetStatValueByName("Exp");
             if (currentExp >= expToNextLevel)
             {
-                currentExp -= expToNextLevel;
-                level++;
+                info.exp -= expToNextLevel;
+                info.level++;
             }
         } while (currentExp >= GetStatValueByName("Exp"));
 
-        info.newExp = currentExp;
-        info.newLevel = level;
+        expInfo.newExp = currentExp;
+        expInfo.newLevel = level;
 
         previousExp = currentExp;
 
-        return info;
+        return expInfo;
     }
 
     public bool Walkable(ZoneData zone)
@@ -231,7 +234,7 @@ public class Hero : MonoBehaviour
             life -= damage;
             Debug.Log(name + " take " + damage + " damages : " + life + "/" + maxLife);
 
-            _from.currentExp += 50;
+            _from.info.exp += 50;
             if (!isAlive)
             {
                 DataManager.instance.onHeroDeath.Invoke(this);
