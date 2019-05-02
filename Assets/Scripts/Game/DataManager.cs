@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.IO;
 
 public class GameEvent : UnityEvent<int> { }
 
@@ -48,7 +49,7 @@ public class DataManager : MonoBehaviour
     public GameEvent onEndGame = new GameEvent();
     public HeroEvent onHeroDeath = new HeroEvent();
 
-
+    public MapData level = null;
 
     void Awake()
     {
@@ -70,6 +71,9 @@ public class DataManager : MonoBehaviour
             {
                 ApplySettings();
             }
+
+            AssetBundleManager.LoadAllBundlesFrom("terrains/palettes");
+            AssetBundleManager.LoadAllBundlesFrom("terrains/zones");
         }
         else
         {
@@ -96,6 +100,7 @@ public class DataManager : MonoBehaviour
         CheckEndGame();
         CheckEndTurn();
     }
+
 
     void CheckEndTurn()
     {

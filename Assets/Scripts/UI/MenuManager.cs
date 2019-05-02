@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] GameObject titleScreen;
+    [SerializeField] GameObject levelSelectionScreen;
     [SerializeField] GameObject settingsScreen;
     [SerializeField] GameObject creditsScreen;
     [SerializeField] ParticleSystem particles;
@@ -26,6 +27,7 @@ public class MenuManager : MonoBehaviour
     public void ShowTitleScreen()
     {
         titleScreen.SetActive(true);
+        levelSelectionScreen.SetActive(false);
         settingsScreen.SetActive(false);
         creditsScreen.SetActive(false);
         particles.enableEmission = true;
@@ -34,6 +36,7 @@ public class MenuManager : MonoBehaviour
     public void ShowSettingsScreen()
     {
         titleScreen.SetActive(false);
+        levelSelectionScreen.SetActive(false);
         settingsScreen.SetActive(true);
         creditsScreen.SetActive(false);
         particles.enableEmission = false;
@@ -42,6 +45,7 @@ public class MenuManager : MonoBehaviour
     public void ShowCreditsScreen()
     {
         titleScreen.SetActive(false);
+        levelSelectionScreen.SetActive(false);
         settingsScreen.SetActive(false);
         creditsScreen.SetActive(true);
         particles.enableEmission = false;
@@ -54,6 +58,10 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        titleScreen.SetActive(false);
+        levelSelectionScreen.SetActive(true);
+        settingsScreen.SetActive(false);
+        creditsScreen.SetActive(false);
+        particles.enableEmission = false;
     }
 }

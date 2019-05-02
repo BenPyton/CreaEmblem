@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 3357935930
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 12497895d05a2420666325b5e2a88027
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6e8e15c9a2b6a8b2805e114f3c7d1ddd
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: be93b6e5dee470c4e8f038c9282dbe96, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 52f942ca9511f354a8efbf325740f4ab, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 318e1bf0929266c409aec7afd07e8486, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Maps/Tiles/Palettes/Plains.asset
+- Assets/Sprites/cliff.png
+- Assets/Sprites/Overworld_Tileset.png
+- Assets/Maps/Tiles/Rules/DarkGrassRule.asset
+- Assets/Maps/Tiles/Rules/HillRule.asset
+Dependencies:
+- E:/Benoit/Unity/CreaEmbleme/AssetBundles/StandaloneWindows/terrains/zones/basiczones

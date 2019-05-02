@@ -10,7 +10,6 @@ public class HeroEvent : UnityEvent<Hero> { }
 [DefaultExecutionOrder(100)]
 public class Controller : MonoBehaviour
 {
-    [SerializeField] Hero prefabHero;
     [SerializeField] SpriteRenderer prefabSelectable;
     [SerializeField] SpriteRenderer prefabHighlight;
     [SerializeField] SpriteRenderer tileSelection;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public struct LevelInfo
+public struct HeroExpInfo
 {
     public int prevExp;
     public int newExp;
@@ -13,7 +13,7 @@ public struct LevelInfo
 }
 
 public class BattleEvent : UnityEvent<Hero, Hero> { }
-public class LevelEvent : UnityEvent<LevelInfo> { }
+public class LevelEvent : UnityEvent<HeroExpInfo> { }
 
 public class BattleManager : MonoBehaviour
 {
@@ -93,7 +93,7 @@ public class BattleManager : MonoBehaviour
         
         if(_attacker.isAlive && _attacker.expChanged)
         {
-            LevelInfo info = _attacker.CheckCurrentLevel();
+            HeroExpInfo info = _attacker.CheckCurrentLevel();
             onExpGain.Invoke(info);
 
             continueBattle = false;
@@ -102,7 +102,7 @@ public class BattleManager : MonoBehaviour
 
         if (_attacked.isAlive && _attacked.expChanged)
         {
-            LevelInfo info = _attacked.CheckCurrentLevel();
+            HeroExpInfo info = _attacked.CheckCurrentLevel();
             onExpGain.Invoke(info);
 
             continueBattle = false;

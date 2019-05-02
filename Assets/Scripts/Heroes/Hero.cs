@@ -114,11 +114,11 @@ public class Hero : MonoBehaviour
         transform.position = m_currentPosition.value;
     }
 
-    public LevelInfo CheckCurrentLevel()
+    public HeroExpInfo CheckCurrentLevel()
     {
         int expToNextLevel = 0;
 
-        LevelInfo info = new LevelInfo();
+        HeroExpInfo info = new HeroExpInfo();
 
         info.hero = this;
         info.prevExp = previousExp;

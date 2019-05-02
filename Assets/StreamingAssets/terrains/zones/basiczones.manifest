@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 4136923532
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2db0db0e3b4070c942821c0de6a97e57
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 189d37cbc40c8b5406ada921ed67d3f0
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {fileID: 11500000, guid: be93b6e5dee470c4e8f038c9282dbe96, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Data/Zones/Mountain.asset
+- Assets/Data/Zones/Ground.asset
+Dependencies: []

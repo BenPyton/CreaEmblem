@@ -1,0 +1,15 @@
+ManifestFileVersion: 0
+CRC: 1355395621
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: levels/firstlevel
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_1:
+      Name: terrains/zones/basiczones
+      Dependencies: {}
+    Info_2:
+      Name: terrains/palettes/plains
+      Dependencies:
+        Dependency_0: terrains/zones/basiczones

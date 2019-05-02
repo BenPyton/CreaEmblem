@@ -37,12 +37,12 @@ public class ExperienceUI : MonoBehaviour
         
     }
 
-    void DisplayExpGain(LevelInfo info)
+    void DisplayExpGain(HeroExpInfo info)
     {
         StartCoroutine(DisplayCoroutine(info));
     }
 
-    IEnumerator DisplayCoroutine(LevelInfo info)
+    IEnumerator DisplayCoroutine(HeroExpInfo info)
     {
         container.SetActive(true);
         expDisplay.SetActive(true);

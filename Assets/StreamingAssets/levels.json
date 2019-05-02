@@ -1,0 +1,9 @@
+{
+	"levels": [
+		{
+			"name": "First Level",
+			"path": "firstlevel",
+			"difficulty": 0
+		}
+	]
+}

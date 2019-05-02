@@ -11,7 +11,6 @@ public class MapManager : MonoBehaviour
     static MapManager instance = null;
 
     [SerializeField] Hero prefabHero;
-    [SerializeField] MapData map;
     [Header("Path")]
     [SerializeField] Tilemap path;
     [SerializeField] TileBase pathTile;
@@ -66,32 +65,41 @@ public class MapManager : MonoBehaviour
     void LoadMap()
     {
         Tilemap tileMap = GetComponentInChildren<Tilemap>();
-        if (tileMap != null && map != null && map.palette != null && map.Load())
+        MapData map = DataManager.instance.level;
+        Debug.Log("map.palette: " + (map != null ? map.name : "NULL"));
+        if (tileMap != null && map != null && map.palette != null)
         {
-            Debug.Log("Map loaded !");
-            tileMap.ClearAllTiles();
-            for (int x = 0; x < MapData.width; x++)
+            if (!map.Load())
             {
-                for (int y = 0; y < MapData.height; y++)
+                Debug.LogError("Error when loading map: " + map.name);
+            }
+            else
+            {
+                Debug.Log("Map loaded !");
+                tileMap.ClearAllTiles();
+                for (int x = 0; x < MapData.width; x++)
                 {
-                    Vector3Int position = new Vector3Int(x, y, 0);
-                    int value = map.data[x, y];
-                    if (value >= 0)
+                    for (int y = 0; y < MapData.height; y++)
                     {
-                        tileMap.SetTile(position, map.palette[value].tile);
-                        gridInfo.SetPositionProperty(position, "data", map.palette[value].data as Object);
-                    }
-                    else
-                    {
-                        //No tile at this position
+                        Vector3Int position = new Vector3Int(x, y, 0);
+                        int value = map.data[x, y];
+                        if (value >= 0)
+                        {
+                            tileMap.SetTile(position, map.palette[value].tile);
+                            gridInfo.SetPositionProperty(position, "data", map.palette[value].data as Object);
+                        }
+                        else
+                        {
+                            //No tile at this position
+                        }
                     }
                 }
-            }
 
-            starts.Clear();
-            foreach (HeroStartInfo info in map.heroStarts)
-            {
-                starts.Add(info);
+                starts.Clear();
+                foreach (HeroStartInfo info in map.heroStarts)
+                {
+                    starts.Add(info);
+                }
             }
         }
     }
