@@ -3,12 +3,12 @@
         {
             "bundleName": "chrom",
             "level": 4,
-            "exp": 3
+            "exp": 103
         },
         {
             "bundleName": "noire",
-            "level": 4,
-            "exp": 153
+            "level": 5,
+            "exp": 55
         }
     ]
 }

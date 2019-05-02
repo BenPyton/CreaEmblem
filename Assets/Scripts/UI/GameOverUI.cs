@@ -28,6 +28,7 @@ public class GameOverUI : MonoBehaviour
             {
                 DataManager.instance.gameState = GameState.None;
                 SceneManager.LoadScene(0);
+                DataManager.instance.SetMusicType(MusicType.Menu);
             }
         }
     }

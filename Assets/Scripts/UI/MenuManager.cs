@@ -27,6 +27,7 @@ public class MenuManager : MonoBehaviour
     
     public void ShowTitleScreen()
     {
+        DataManager.instance.SetMusicType(MusicType.Menu);
         titleScreen.SetActive(true);
         teamSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
@@ -62,6 +63,7 @@ public class MenuManager : MonoBehaviour
 
     public void SelectTeam()
     {
+        DataManager.instance.SetMusicType(MusicType.Selection);
         titleScreen.SetActive(false);
         teamSelectionScreen.SetActive(true);
         levelSelectionScreen.SetActive(false);

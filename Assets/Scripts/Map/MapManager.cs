@@ -53,6 +53,7 @@ public class MapManager : MonoBehaviour
 
         LoadMap();
         SpawnHeroes();
+        DataManager.instance.SetMusicType(MusicType.Battle);
     }
 
     // Update is called once per frame

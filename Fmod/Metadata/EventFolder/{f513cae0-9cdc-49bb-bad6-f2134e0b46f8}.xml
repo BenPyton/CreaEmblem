@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="EventFolder" id="{f513cae0-9cdc-49bb-bad6-f2134e0b46f8}">
+        <property name="name">
+            <value>Musics</value>
+        </property>
+        <relationship name="folder">
+            <destination>{0469b4aa-1f91-4354-9f2a-3779e165699a}</destination>
+        </relationship>
+    </object>
+</objects>

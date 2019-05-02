@@ -7,6 +7,14 @@ using System.Linq;
 
 public class GameEvent : UnityEvent<int> { }
 
+public enum MusicType
+{
+    Menu,
+    Selection,
+    Battle,
+    Victory
+}
+
 public enum GameState
 {
     None,
@@ -123,6 +131,7 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
+        audio["Musics/BGM"].Play();
     }
 
     // Update is called once per frame
@@ -130,6 +139,11 @@ public class DataManager : MonoBehaviour
     {
         CheckEndGame();
         CheckEndTurn();
+    }
+
+    public void SetMusicType(MusicType _type)
+    {
+        audio["Musics/BGM"].Set("Type", (float)_type);
     }
 
 
@@ -190,6 +204,7 @@ public class DataManager : MonoBehaviour
         {
             Debug.Log("Endgame, winner: " + _winner);
             gameState = GameState.End;
+            DataManager.instance.SetMusicType(MusicType.Victory);
             onEndGame.Invoke(_winner);
         }
     }

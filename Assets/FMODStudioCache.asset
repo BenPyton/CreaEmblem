@@ -18,9 +18,10 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 114545656914740812}
   - {fileID: 114796303961123130}
+  - {fileID: 114415820317453330}
   MasterBankRef: {fileID: 114275719270126662}
   StringsBankRef: {fileID: 114741552270461998}
-  stringsBankWriteTime: 636922958089831260
+  stringsBankWriteTime: 636924286062068863
   cacheVersion: 2
 --- !u!114 &114275719270126662
 MonoBehaviour:
@@ -35,12 +36,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: E:\Benoit\Unity\CreaEmbleme\Fmod\Build\Desktop\Master Bank.bank
-  lastModified: 636922958089801272
+  lastModified: 636924286062048878
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 21280
+    Value: 7376128
   Exists: 1
+--- !u!114 &114415820317453330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Musics/BGM
+  guid: 466d7acda5091a41aec78ee9ae8b6ec9
+  Banks:
+  - {fileID: 114275719270126662}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 114968378506167742}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 484757
+--- !u!114 &114441487612022996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Type
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114545656914740812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,16 +95,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: event:/UI/ButtonBack
-  guid: 230a9f6b91fa75458d84c5ade2073eeb
+  guid: adced12c21c27249b643bdb9002745b6
   Banks:
   - {fileID: 114275719270126662}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 392
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 384
 --- !u!114 &114741552270461998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,11 +118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Fmod\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636922958089831260
+  lastModified: 636924286062068863
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 892
+    Value: 944
   Exists: 1
 --- !u!114 &114796303961123130
 MonoBehaviour:
@@ -96,13 +137,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: event:/UI/ButtonClick
-  guid: ef179f2861f6e84a81353cc5ff38f6b7
+  guid: 316a81ee3f85a84391601b3e7aeed038
   Banks:
   - {fileID: 114275719270126662}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 384
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 392
+--- !u!114 &114968378506167742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Type
+  Min: 0
+  Max: 3
+  Default: 0
