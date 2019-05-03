@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{6bc546d4-010c-41d6-89da-7f581b590823}">
+        <property name="assetPath">
+            <value>Game/PHASE1_1.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>18</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>1.467111111111111</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{c0482640-49c8-4623-972b-4427827ec069}</destination>
+        </relationship>
+    </object>
+</objects>

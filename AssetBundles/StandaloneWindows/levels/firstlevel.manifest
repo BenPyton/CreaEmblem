@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 666677675
+CRC: 2624855029
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b031fd4cf0894d8aeb9af19bf7f82d7d
+    Hash: 93ed71b9b662d399970d177b39e208c1
   TypeTreeHash:
     serializedVersion: 2
     Hash: 452d216378a0ec1dc1dcb2af81337bc4
@@ -18,8 +18,8 @@ ClassTypes:
 - Class: 115
   Script: {instanceID: 0}
 Assets:
-- Assets/Maps/firstLevel_starts.csv
-- Assets/Maps/FirstLevel.asset
-- Assets/Maps/firstLevel_terrain.csv
+- Assets/Maps/Levels/SimpleLevel/Simple.asset
+- Assets/Maps/Levels/SimpleLevel/Simple_map.csv
+- Assets/Maps/Levels/SimpleLevel/Simple_start.csv
 Dependencies:
 - E:/Benoit/Unity/CreaEmbleme/AssetBundles/StandaloneWindows/terrains/palettes/plains

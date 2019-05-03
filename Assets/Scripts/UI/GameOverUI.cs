@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[DefaultExecutionOrder(10)]
+[DefaultExecutionOrder(1000)]
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] GameObject gameOver;
@@ -20,7 +20,7 @@ public class GameOverUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(DataManager.instance.gameState == GameState.End)
         {

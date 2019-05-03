@@ -14,8 +14,8 @@ public struct HeroStartInfo
 [CreateAssetMenu(fileName = "MapData", menuName = "Data/Map")]
 public class MapData : ScriptableObject
 {
-    public static int width = 16;
-    public static int height = 8;
+    public static int width = 26;
+    public static int height = 16;
 
     public PaletteData palette = null;
     [SerializeField] private TextAsset m_data;

@@ -175,7 +175,8 @@ public class Hero : MonoBehaviour
                     Vector3Int tilePos = tile.position + Utils.DirectionTile[i];
                     TileClass newTile = new TileClass(tilePos);
                     newTile.previous = tile;
-                    if (!reachableTiles.Contains(newTile) && Walkable(MapManager.GetZoneAtPosition(tilePos)))
+                    if (!reachableTiles.Contains(newTile) 
+                        && (k >= MoveRange || Walkable(MapManager.GetZoneAtPosition(tilePos))))
                     {
                         reachableTiles.Add(newTile);
 
@@ -229,8 +230,22 @@ public class Hero : MonoBehaviour
     {
         if(isAlive)
         {
-            int def = data.weapon.damageType == DamageType.Physical ? defense : resistance;
-            int damage = _from.attack - def;
+            float forceRatio = 0.0f;
+            if(_from.data.weapon.IsWeakAgainst(data.weapon))
+            {
+                forceRatio -= 0.20f; // reduce of 20 percent damage 
+                Debug.Log("Weapon Weaker");
+            }
+            if(_from.data.weapon.IsStrongAgainst(data.weapon))
+            {
+                forceRatio += 0.20f; // add 20 percent damages
+                Debug.Log("Weapon Stronger");
+            }
+
+            int def = (data.weapon.damageType == DamageType.Physical ? defense : resistance);
+            int damage = _from.attack + Mathf.CeilToInt(forceRatio * _from.attack) - def;
+            
+
             life -= damage;
             Debug.Log(name + " take " + damage + " damages : " + life + "/" + maxLife);
 

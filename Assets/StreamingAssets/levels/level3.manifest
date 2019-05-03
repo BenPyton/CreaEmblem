@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 682229024
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2fd0389e01f0a5bc5521f1fa521683e0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 452d216378a0ec1dc1dcb2af81337bc4
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 318e1bf0929266c409aec7afd07e8486, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: efb402c367f787641bbee80f01629cb7, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Maps/Levels/Level3/Level3_start.csv
+- Assets/Maps/Levels/Level3/Level3_map.csv
+- Assets/Maps/Levels/Level3/Level3.asset
+Dependencies:
+- E:/Benoit/Unity/CreaEmbleme/AssetBundles/StandaloneWindows/terrains/palettes/plains

@@ -19,4 +19,14 @@ public class WeaponData : ScriptableObject
     public List<WeaponData> weaknesses;
     public List<WeaponData> resistances;
 
+
+    public bool IsWeakAgainst(WeaponData _other)
+    {
+        return weaknesses.Contains(_other);
+    }
+    
+    public bool IsStrongAgainst(WeaponData _other)
+    {
+        return resistances.Contains(_other);
+    }
 }

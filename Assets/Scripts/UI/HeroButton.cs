@@ -9,7 +9,9 @@ public class HeroButton : MonoBehaviour
 {
     [SerializeField] GameObject container;
     [SerializeField] Image portrait;
+    [SerializeField] Image frame;
     [SerializeField] Image weaponIcon;
+    [SerializeField] Image highlightImage;
     [SerializeField] Text heroName;
     [SerializeField] Text heroLvl;
 
@@ -32,6 +34,13 @@ public class HeroButton : MonoBehaviour
     [SerializeField] public int team = -1;
 
 
+    private bool m_highligthed = false;
+    public bool highligthed
+    {
+        get { return m_highligthed; }
+        set { m_highligthed = value; UpdateHighlighted(); }
+    }
+
     private void Start()
     {
         button = GetComponent<Button>();
@@ -45,6 +54,7 @@ public class HeroButton : MonoBehaviour
         if (info != null)
         {
             container.SetActive(true);
+            portrait.gameObject.SetActive(true);
             HeroData data = DataManager.instance.heroes.GetHeroDataFromInfo(info);
             portrait.sprite = data.icon;
             weaponIcon.sprite = data.weapon.icon;
@@ -54,13 +64,20 @@ public class HeroButton : MonoBehaviour
         else
         {
             container.SetActive(false);
+            portrait.gameObject.SetActive(false);
         }
     }
 
     private void UpdateSelected()
     {
         button.interactable = !m_selected;
+        portrait.color = m_selected ? Color.grey : Color.white;
         SetBGColor();
+    }
+
+    private void UpdateHighlighted()
+    {
+        highlightImage.gameObject.SetActive(m_highligthed);
     }
 
     private void SetBGColor()
@@ -68,13 +85,16 @@ public class HeroButton : MonoBehaviour
         switch(team)
         {
             case 0:
-                background.color = new Color(0.5f, 0.5f, 0.9f);
+                background.color = new Color(0.6f, 0.6f, 1.0f);
+                frame.color = new Color(0.6f, 0.6f, 1.0f);
                 break;
             case 1:
-                background.color = new Color(0.9f, 0.5f, 0.5f);
+                background.color = new Color(1.0f, 0.6f, 0.6f);
+                frame.color = new Color(1.0f, 0.6f, 0.6f);
                 break;
             default:
-                background.color = new Color(0.8f, 0.8f, 0.8f);
+                background.color = new Color(1.0f, 1.0f, 1.0f);
+                frame.color = new Color(1.0f, 1.0f, 1.0f);
                 break;
         }
     }

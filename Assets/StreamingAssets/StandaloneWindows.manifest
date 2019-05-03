@@ -1,36 +1,148 @@
 ManifestFileVersion: 0
-CRC: 1634236465
+CRC: 828993171
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: levels/firstlevel
-      Dependencies:
-        Dependency_0: terrains/palettes/plains
-    Info_1:
       Name: terrains/palettes/plains
       Dependencies:
         Dependency_0: terrains/zones/basiczones
-    Info_2:
+    Info_1:
       Name: terrains/zones/basiczones
       Dependencies: {}
-    Info_3:
+    Info_2:
       Name: heroes/chrom
       Dependencies:
         Dependency_0: weapons/basicweapons
         Dependency_1: stats/basicstats
         Dependency_2: mounts/basicmounts
-    Info_4:
+    Info_3:
       Name: heroes/noire
       Dependencies:
         Dependency_0: weapons/basicweapons
         Dependency_1: stats/basicstats
         Dependency_2: mounts/basicmounts
-    Info_5:
+    Info_4:
       Name: weapons/basicweapons
       Dependencies: {}
-    Info_6:
+    Info_5:
       Name: stats/basicstats
       Dependencies: {}
-    Info_7:
+    Info_6:
       Name: mounts/basicmounts
       Dependencies: {}
+    Info_7:
+      Name: heroes/anna
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_8:
+      Name: heroes/cordelia
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_9:
+      Name: heroes/donnel
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_10:
+      Name: heroes/gaius
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_11:
+      Name: heroes/gerome
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_12:
+      Name: heroes/gregor
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_13:
+      Name: heroes/inigo
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_14:
+      Name: heroes/lissa
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_15:
+      Name: heroes/lucina
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_16:
+      Name: heroes/maribelle
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_17:
+      Name: heroes/priam
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_18:
+      Name: heroes/tiki
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_19:
+      Name: heroes/virion
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_20:
+      Name: heroes/walhart
+      Dependencies:
+        Dependency_0: weapons/basicweapons
+        Dependency_1: stats/basicstats
+        Dependency_2: mounts/basicmounts
+    Info_21:
+      Name: levels/level1
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_22:
+      Name: levels/level2
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_23:
+      Name: levels/level3
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_24:
+      Name: levels/level4
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_25:
+      Name: levels/level5
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_26:
+      Name: levels/level6
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_27:
+      Name: levels/level7
+      Dependencies:
+        Dependency_0: terrains/palettes/plains
+    Info_28:
+      Name: levels/simplelevel
+      Dependencies:
+        Dependency_0: terrains/palettes/plains

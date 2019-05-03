@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{a26f7ff2-c361-4150-b250-4d39faeb4fdf}">
+        <property name="assetPath">
+            <value>Battle/Hits/Step Armor 4.mp3</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.91200000000000003</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{c0482640-49c8-4623-972b-4427827ec069}</destination>
+        </relationship>
+    </object>
+</objects>

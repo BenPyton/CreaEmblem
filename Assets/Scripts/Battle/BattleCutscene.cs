@@ -26,11 +26,13 @@ public class BattleCutscene : MonoBehaviour
             leftHero.sprite = _attacker.team == 0 ? _attacker.data.spriteSheet[0, 0] : _attacked.data.spriteSheet[0, 0];
 
             anim.SetTrigger("StartBattle");
+            DataManager.instance.audio["Game/StartBattle"].Play();
         });
 
         battle.onEndCutscene.AddListener(() =>
         {
             anim.SetTrigger("EndBattle");
+            DataManager.instance.audio["Game/EndBattle"].Play();
         });
 
         battle.onHeroAttack.AddListener((Hero _attacker, Hero _attacked) =>
@@ -54,6 +56,7 @@ public class BattleCutscene : MonoBehaviour
 
     public void Attack()
     {
+        DataManager.instance.audio["Game/Attack"].Play();
         attacked.GetDamage(attacker);
     }
 }

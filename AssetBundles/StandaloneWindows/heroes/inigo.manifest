@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 538786072
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9284b4c9412481c12016842cd7f4e6a6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 71e5217155b4f5f1fec36daea4f03855
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d7095b603de49fb4a8a74e4376b4ab11, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d47ca73aa9804284da708405554268ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6f3dd2bb6c2af9a4d929d99764eb7258, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 91a8e2cb902730c4aaf0d551462637f6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f2d62ddb9850e4e42a9eddac91462460, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Data/Heroes/inigo/Inigo.asset
+- Assets/Data/Heroes/inigo/inigoSheet.asset
+- Assets/Data/Heroes/inigo/inigo_sheet.png
+- Assets/Data/Heroes/inigo/inigo_portrait.png
+Dependencies:
+- E:/Benoit/Unity/CreaEmbleme/AssetBundles/StandaloneWindows/weapons/basicweapons
+- E:/Benoit/Unity/CreaEmbleme/AssetBundles/StandaloneWindows/stats/basicstats
+- E:/Benoit/Unity/CreaEmbleme/AssetBundles/StandaloneWindows/mounts/basicmounts

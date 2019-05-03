@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StatsUI : MonoBehaviour
 {
     [SerializeField] Controller controller;
+    [SerializeField] GameObject container;
     [SerializeField] Image portrait;
     [SerializeField] Image weaponIcon;
     [SerializeField] Text heroName;
@@ -21,6 +22,10 @@ public class StatsUI : MonoBehaviour
     void Start()
     {
         controller.onHeroClicked.AddListener(UpdateStats);
+        UpdateStats(null);
+
+        DataManager.instance.onEndTurn.AddListener((int x) => UpdateStats(null));
+        DataManager.instance.onEndGame.AddListener((int x) => gameObject.SetActive(false));
     }
 
     // Update is called once per frame
@@ -31,8 +36,10 @@ public class StatsUI : MonoBehaviour
 
     public void UpdateStats(Hero hero)
     {
+        container.SetActive(hero != null);
         if (hero != null)
         {
+            GetComponent<Image>().color = hero.team > 0 ? new Color(1.0f, 0.6f, 0.6f) : new Color(0.5f, 0.7f, 1.0f);
             portrait.sprite = hero.data.icon;
             weaponIcon.sprite = hero.data.weapon.icon;
             heroName.text = hero.data.displayName;
@@ -44,5 +51,14 @@ public class StatsUI : MonoBehaviour
             heroRes.text = hero.resistance.ToString();
             heroSpd.text = hero.speed.ToString();
         }
+        else
+        {
+            GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f);
+        }
+    }
+
+    public void EndTurn()
+    {
+        DataManager.instance.EndTurn();
     }
 }

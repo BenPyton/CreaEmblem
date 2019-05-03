@@ -20,7 +20,9 @@ public enum GameState
     None,
     Start,
     Playing,
+    Pause,
     Battle,
+    Transition,
     End,
     NbState
 }
@@ -41,8 +43,7 @@ public class DataManager : MonoBehaviour
 
     private int m_teamPlaying = -1;
     public int teamPlaying { get { return m_teamPlaying; } }
-
-    public bool blockInput = false;
+    public int nextTeam { get { return (m_teamPlaying + 1) % nbTeam; } }
 
     public new AudioManager audio = new AudioManager();
     public DataFile configFile = new DataFile();
@@ -60,6 +61,9 @@ public class DataManager : MonoBehaviour
     public HeroEvent onHeroDeath = new HeroEvent();
 
     public MapData level = null;
+
+    Coroutine endTurnCoroutine = null;
+    Coroutine endGameCoroutine = null;
 
     void Awake()
     {
@@ -200,26 +204,31 @@ public class DataManager : MonoBehaviour
 
     public void EndGame(int _winner)
     {
-        if(gameState == GameState.Playing)
+        // Stop a potentially end turn coroutine
+        if(endTurnCoroutine != null)
         {
-            Debug.Log("Endgame, winner: " + _winner);
-            gameState = GameState.End;
-            DataManager.instance.SetMusicType(MusicType.Victory);
-            onEndGame.Invoke(_winner);
+            StopCoroutine(endTurnCoroutine);
+        }
+
+        if (endGameCoroutine == null)
+        {
+            endGameCoroutine = StartCoroutine(EndGameCoroutine(_winner));
         }
     }
 
     public void BeginTurn()
     {
         gameState = GameState.Playing;
-        blockInput = false;
-        m_teamPlaying = (m_teamPlaying + 1) % nbTeam;
+        m_teamPlaying = nextTeam;
         onStartTurn.Invoke(teamPlaying);
     }
 
     public void EndTurn()
     {
-        StartCoroutine(EndTurnCoroutine());
+        if (endTurnCoroutine == null && endGameCoroutine == null)
+        {
+            endTurnCoroutine = StartCoroutine(EndTurnCoroutine());
+        }
     }
 
     public void ApplySettings()
@@ -232,8 +241,22 @@ public class DataManager : MonoBehaviour
 
     IEnumerator EndTurnCoroutine()
     {
-        yield return new WaitUntil(() => gameState != GameState.Battle);
-        blockInput = true;
+        yield return new WaitUntil(() => gameState == GameState.Playing || gameState == GameState.Start);
+        gameState = GameState.Transition;
         onEndTurn.Invoke(teamPlaying);
+        endTurnCoroutine = null;
+        audio["Game/ChangeTurn"].Play();
+    }
+
+
+    IEnumerator EndGameCoroutine(int _winner)
+    {
+        yield return new WaitUntil(() => gameState == GameState.Playing);
+
+        Debug.Log("Endgame, winner: " + _winner);
+        gameState = GameState.End;
+        SetMusicType(MusicType.Victory);
+        onEndGame.Invoke(_winner);
+        endGameCoroutine = null;
     }
 }

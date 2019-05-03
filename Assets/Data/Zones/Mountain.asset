@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Hill
   icon: {fileID: 0}
-  height: 1
+  height: 2
   spriteSheet: {fileID: 0}

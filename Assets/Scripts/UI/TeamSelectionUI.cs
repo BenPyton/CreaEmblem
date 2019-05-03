@@ -30,9 +30,7 @@ public class TeamSelectionUI : MonoBehaviour
 
             b.GetComponent<Button>().onClick.AddListener(() =>
             {
-                Debug.Log("Clicked on hero");
-                selectedHeroButton = b;
-
+                SetSelected(ref selectedHeroButton, b);
             });
 
             heroButtons.Add(b);
@@ -44,7 +42,7 @@ public class TeamSelectionUI : MonoBehaviour
         {
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
-                selectedSlot = button;
+                SetSelected(ref selectedSlot, button);
             });
         }
 
@@ -52,8 +50,26 @@ public class TeamSelectionUI : MonoBehaviour
         {
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
-                selectedSlot = button;
+                SetSelected(ref selectedSlot, button);
             });
+        }
+    }
+
+    void SetSelected(ref HeroButton oldButton, HeroButton newButton)
+    {
+        if (oldButton != null)
+        {
+            oldButton.highligthed = false;
+        }
+        if (oldButton != newButton)
+        {
+            DataManager.instance.audio["Game/TileClicked"].Play();
+            oldButton = newButton;
+            oldButton.highligthed = true;
+        }
+        else
+        {
+            oldButton = null;
         }
     }
 
@@ -68,17 +84,20 @@ public class TeamSelectionUI : MonoBehaviour
             {
                 button.team = -1;
                 button.selected = false;
+                button.highligthed = false;
             }
         }
 
         foreach(HeroButton button in teamASlots)
         {
             button.info = null;
+            button.highligthed = false;
         }
 
         foreach (HeroButton button in teamBSlots)
         {
             button.info = null;
+            button.highligthed = false;
         }
     }
 
@@ -86,16 +105,21 @@ public class TeamSelectionUI : MonoBehaviour
     {
         if(selectedHeroButton != null && selectedSlot != null)
         {
-            if(selectedSlot.info != null)
+            DataManager.instance.audio["UI/SetTeam"].Play();
+            if (selectedSlot.info != null)
             {
                 HeroButton button = GetButtonWithHero(selectedSlot.info);
                 if(button != null)
                 {
                     button.team = -1;
                     button.selected = false;
+                    button.highligthed = false;
                 }
             }
 
+
+            selectedSlot.highligthed = false;
+            selectedHeroButton.highligthed = false;
 
             selectedSlot.info = selectedHeroButton.info;
             selectedHeroButton.team = selectedSlot.team;

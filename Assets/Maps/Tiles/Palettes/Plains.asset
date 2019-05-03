@@ -19,3 +19,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 087bcf8b0da767a40b5109da43b5a605, type: 2}
   - tile: {fileID: 11400000, guid: 5ed5bedfe4101e649a4b2e21058b18f6, type: 2}
     data: {fileID: 11400000, guid: c74e02aa900efe948bca29283e080a2a, type: 2}
+  - tile: {fileID: 11400000, guid: 5af74766839e219449e7cd907e529506, type: 2}
+    data: {fileID: 11400000, guid: 9fc42b3e39fbb8245895938068b41237, type: 2}
+  - tile: {fileID: 11400000, guid: 7cdd7a3532c1bde489ee0eb080c2a698, type: 2}
+    data: {fileID: 11400000, guid: 913fb640fadfd7d46822f7874a892b14, type: 2}

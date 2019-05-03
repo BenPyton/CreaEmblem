@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb402c367f787641bbee80f01629cb7, type: 3}
+  m_Name: Level4
+  m_EditorClassIdentifier: 
+  palette: {fileID: 11400000, guid: 58189d2066dcb1e49ba2cbb52a9c5717, type: 2}
+  m_data: {fileID: 4900000, guid: bfac123ecae7e5543ba13bef19e998eb, type: 3}
+  m_heroStarts: {fileID: 4900000, guid: 86483a8f69b7c1b44882afe48e9f2eef, type: 3}
+  heroStarts: []

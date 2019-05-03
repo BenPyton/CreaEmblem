@@ -56,6 +56,7 @@ public class ExperienceUI : MonoBehaviour
         prevLevelText.text = info.prevLevel.ToString();
         newLevelText.text = info.newLevel.ToString();
 
+        DataManager.instance.audio["Game/ExpGain"].Play();
         anim.SetTrigger("DisplayGain");
 
         continueDisplay = false;
@@ -65,6 +66,7 @@ public class ExperienceUI : MonoBehaviour
 
         if (info.newLevel != info.prevLevel)
         {
+            DataManager.instance.audio["Game/LevelUp"].Play();
             levelUpDisplay.SetActive(true);
 
             anim.SetTrigger("DisplayLevelUp");

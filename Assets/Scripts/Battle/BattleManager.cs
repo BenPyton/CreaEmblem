@@ -44,7 +44,6 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator BattleCoroutine(Hero _attacker, Hero _attacked)
     {
-        DataManager.instance.blockInput = true;
         DataManager.instance.gameState = GameState.Battle;
         onStartBattle.Invoke(_attacker, _attacked);
         
@@ -108,8 +107,7 @@ public class BattleManager : MonoBehaviour
             continueBattle = false;
             yield return new WaitUntil(() => continueBattle);
         }
-
-        DataManager.instance.blockInput = false;
+        
         DataManager.instance.gameState = GameState.Playing;
         onEndBattle.Invoke();
     }

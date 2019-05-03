@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{d7e72bfb-02a0-4d9e-9da7-c721df5fb42a}">
+        <property name="assetPath">
+            <value>Game/CGM3_Select_Button_03_1.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.067482993197278907</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{c0482640-49c8-4623-972b-4427827ec069}</destination>
+        </relationship>
+    </object>
+</objects>

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3658975854
+CRC: 446481127
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 267c4ce3f873959993049cc2be31f2da
+    Hash: 090fce5633eeca5e379605b38cf76400
   TypeTreeHash:
     serializedVersion: 2
     Hash: 189d37cbc40c8b5406ada921ed67d3f0
@@ -14,6 +14,7 @@ ClassTypes:
 - Class: 115
   Script: {instanceID: 0}
 Assets:
+- Assets/Data/Zones/Forest.asset
 - Assets/Data/Zones/Mountain.asset
 - Assets/Data/Zones/Ground.asset
 - Assets/Data/Zones/Water.asset

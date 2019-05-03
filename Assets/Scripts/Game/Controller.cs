@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
 
 public class HeroEvent : UnityEvent<Hero> { } 
 
@@ -33,6 +32,8 @@ public class Controller : MonoBehaviour
     void Awake()
     {
         DataManager.instance.onStartTurn.AddListener(StartTurn);
+        DataManager.instance.onEndTurn.AddListener(EndTurn);
+        DataManager.instance.onEndGame.AddListener((int team) => { DeselectHero(); ClearSelectables(); }) ;
         battle = GetComponent<BattleManager>();
     }
 
@@ -52,7 +53,9 @@ public class Controller : MonoBehaviour
         }
 
 
-        if(!DataManager.instance.blockInput && Input.GetMouseButtonDown(0))
+        if(DataManager.instance.gameState == GameState.Playing 
+            && !EventSystem.current.IsPointerOverGameObject() // cursor is not over an UI element
+            && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = MapManager.GetTileUnderMouse();
             Hero heroOnTile = MapManager.GetHeroAtTile(tilePos);
@@ -62,8 +65,10 @@ public class Controller : MonoBehaviour
                 onHeroClicked.Invoke(heroOnTile);
             }
 
+
             if (selectedHero == null || !selectedHero.canPlay || selectedHero.team != DataManager.instance.teamPlaying)
             {
+                DataManager.instance.audio["Game/TileClicked"].Play();
                 SelectHero(heroOnTile);
             }
             else if(selectedHero.canPlay)
@@ -71,17 +76,19 @@ public class Controller : MonoBehaviour
                 TileClass tile = reachableTiles.Find(x => x.position == tilePos);
                 if(tile != null)
                 {
-                    switch(tile.type)
+                    switch (tile.type)
                     {
                         case TileType.Walkable:
                             if (posChanged && selectedTile == tilePos)
                             {
+                                DataManager.instance.audio["Game/HeroPlayed"].Play();
                                 selectedHero.position = tilePos;
                                 selectedHero.canPlay = false;
                                 DeselectHero();
                             }
                             else if (tile.enabled)
                             {
+                                DataManager.instance.audio["Game/MoveHero"].Play();
                                 selectedHero.targetPosition = tilePos;
                                 posChanged = true;
                                 selectedTile = tilePos;
@@ -96,8 +103,13 @@ public class Controller : MonoBehaviour
 
                         case TileType.Attackable:
                             TileClass destTile = Utils.GetFirstWalkableTile(tile);
-                            if (posChanged && selectedTile == tilePos)
+                            if(destTile == null)
                             {
+                                // i've don't implemented this situation...
+                            }
+                            else if (posChanged && selectedTile == tilePos)
+                            {
+                                DataManager.instance.audio["Game/HeroPlayed"].Play();
                                 battle.Attack(selectedHero, heroOnTile);
                                 selectedHero.position = destTile.position;
                                 selectedHero.canPlay = false;
@@ -105,6 +117,7 @@ public class Controller : MonoBehaviour
                             }
                             else if (tile.enabled)
                             {
+                                DataManager.instance.audio["Game/AttackClicked"].Play();
                                 selectedHero.targetPosition = destTile.position;
                                 posChanged = true;
                                 selectedTile = tilePos;
@@ -117,6 +130,7 @@ public class Controller : MonoBehaviour
                 }
                 else if(heroOnTile == null)
                 {
+                    DataManager.instance.audio["Game/HeroDeselect"].Play();
                     DeselectHero();
                 }
             }
@@ -126,13 +140,14 @@ public class Controller : MonoBehaviour
 
     void StartTurn(int _team)
     {
-        //Debug.Log("Start Turn");
-        playingHeroes.Clear();
-
         playingHeroes = MapManager.GetAllHeroes(_team);
-
-        ClearSelectables();
         ShowSelectables();
+    }
+
+    void EndTurn(int _team)
+    {
+        playingHeroes.Clear();
+        ClearSelectables();
     }
 
     void SelectHero(Hero _hero)
@@ -142,12 +157,11 @@ public class Controller : MonoBehaviour
         ClearHighlights();
         if (selectedHero != null && selectedHero.canPlay)
         {
-            //Debug.Log("Selected: " + selectedHero.data.name);
-
             reachableTiles = selectedHero.GetReachableTiles();
             
             if (selectedHero.team == DataManager.instance.teamPlaying)
             {
+                DataManager.instance.audio["Game/HeroSelected"].Play();
                 tileSelection.enabled = true;
                 tileSelection.transform.position = MapManager.GetTileCenter(selectedHero.gridPosition);
                 ClearSelectables();
@@ -160,11 +174,14 @@ public class Controller : MonoBehaviour
     void DeselectHero()
     {
         ClearHighlights();
-        if (selectedHero.team == DataManager.instance.teamPlaying)
-            ShowSelectables();
+        if (selectedHero != null)
+        {
+            if (selectedHero.team == DataManager.instance.teamPlaying)
+                ShowSelectables();
 
-        selectedHero.targetPosition = selectedHero.gridPosition;
-        selectedHero = null;
+            selectedHero.targetPosition = selectedHero.gridPosition;
+            selectedHero = null;
+        }
 
         tileSelection.enabled = false;
         posChanged = false;

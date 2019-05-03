@@ -39,7 +39,14 @@ public class AnimatedSprite : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        sr.sprite = sheet[(int)row, animIndex];
+        if (sr != null && sheet != null)
+        {
+            sr.sprite = sheet[(int)row, animIndex];
+        }
+        else
+        {
+            Debug.Log((sr == null ? "No SpriteRenderer    " : "") + (sheet == null ? "No SpriteSheet" : ""));
+        }
 	}
 
     protected IEnumerator Animate()

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3476546700
+CRC: 3882767914
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a5571c667a408b681cbe004ade89e7e0
+    Hash: a4df31b398ee0397c9a71db7a866c9ff
   TypeTreeHash:
     serializedVersion: 2
     Hash: 939d93e1349b096662b863d3dab6ee65
@@ -14,5 +14,7 @@ ClassTypes:
 - Class: 115
   Script: {instanceID: 0}
 Assets:
-- Assets/Data/Mounts/None.asset
+- Assets/Data/Mounts/Horse.asset
+- Assets/Data/Mounts/Pegase.asset
+- Assets/Data/Mounts/Feet.asset
 Dependencies: []

@@ -1,8 +1,43 @@
 {
 	"levels": [
 		{
+			"name": "Tuto",
+			"path": "simplelevel",
+			"difficulty": 0
+		},
+		{
 			"name": "First Level",
-			"path": "firstlevel",
+			"path": "level1",
+			"difficulty": 0
+		},
+		{
+			"name": "A More Complexe",
+			"path": "level2",
+			"difficulty": 0
+		},
+		{
+			"name": "Hello World !",
+			"path": "level3",
+			"difficulty": 0
+		},
+		{
+			"name": "There's a Lot of Level",
+			"path": "level4",
+			"difficulty": 0
+		},
+		{
+			"name": "A Level Name",
+			"path": "level5",
+			"difficulty": 0
+		},
+		{
+			"name": "Another Level Name",
+			"path": "level6",
+			"difficulty": 0
+		},
+		{
+			"name": "The End (Maybe)",
+			"path": "level7",
 			"difficulty": 0
 		}
 	]
