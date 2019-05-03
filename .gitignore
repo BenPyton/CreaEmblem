@@ -4,6 +4,9 @@
 
 # Specific to my project
 [Cc]onfig.txt
+[Dd]ata/
+*.odt*
+*.tmx
 
 ### Unity ###
 [Ll]ibrary/
